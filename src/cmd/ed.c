@@ -51,6 +51,7 @@ int	names[26];
 int	nleft;
 int	oblock;
 int	oflag;
+int	nflag;
 Reprog	*pattern;
 int	peekc;
 int	pflag;
@@ -138,6 +139,9 @@ main(int argc, char *argv[])
 		oflag = 1;
 		vflag = 0;
 		break;
+	case 'n':
+		nflag = 1;
+		break;
 	} ARGEND
 
 	USED(argc);
@@ -160,6 +164,7 @@ main(int argc, char *argv[])
 				p2--;
 		globp = Lr;
 	}
+	print("ed gabc\n");
 	zero = malloc((nlall+5)*sizeof(int*));
 	tfname = mktemp(tmp);
 	init();
@@ -416,7 +421,7 @@ printcom(void)
 	nonzero();
 	a1 = addr1;
 	do {
-		if(listn) {
+		if(listn || nflag) {
 			count = a1-zero;
 			putd();
 			putchr('\t');
