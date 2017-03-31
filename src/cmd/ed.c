@@ -164,7 +164,6 @@ main(int argc, char *argv[])
 				p2--;
 		globp = Lr;
 	}
-	print("ed gabc\n");
 	zero = malloc((nlall+5)*sizeof(int*));
 	tfname = mktemp(tmp);
 	init();
