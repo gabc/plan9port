@@ -497,11 +497,13 @@ flushtyping(int clearesc)
 #define	CUT	(Kcmd+'x')
 #define	COPY	(Kcmd+'c')
 #define	PASTE	(Kcmd+'v')
+#define MENUCMD	(Kcmd+'s')
 
 int
 nontypingkey(int c)
 {
 	switch(c){
+	case MENUCMD:
 	case BACKSCROLLKEY:
 	case ENDKEY:
 	case HOMEKEY:
@@ -628,6 +630,15 @@ type(Flayer *l, int res)	/* what a bloody mess this is */
 		for(l=t->l; l<&t->l[NL]; l++)
 			if(l->textfn)
 				flsetselect(l, l->p0, l->p1);
+	}else if(c == MENUCMD){
+		t = &cmd;
+		for(l=t->l; l->textfn==0; l++)
+			;
+		current(l);
+		flushtyping(0);
+		a = t->rasp.nrunes;
+		flsetselect(l, a, a);
+		center(l, a);
 	}else if(backspacing && !hostlock){
 		/* backspacing immediately after outcmd(): sorry */
 		if(l->f.p0>0 && a>0){
