@@ -8,6 +8,7 @@
 
 #undef EOF	/* stdio? */
 
+#define FLAG(x)	flags[x - 'a']
 enum
 {
 	FNSIZE	= 128,		/* file name */
@@ -47,11 +48,11 @@ int	listf;
 int	listn;
 Rune*	loc1;
 Rune*	loc2;
+int	flags[26];
 int	names[26];
 int	nleft;
 int	oblock;
 int	oflag;
-int	nflag;
 Reprog	*pattern;
 int	peekc;
 int	pflag;
@@ -140,7 +141,7 @@ main(int argc, char *argv[])
 		vflag = 0;
 		break;
 	case 'n':
-		nflag = 1;
+		FLAG('n') = 1;
 		break;
 	} ARGEND
 
@@ -420,7 +421,7 @@ printcom(void)
 	nonzero();
 	a1 = addr1;
 	do {
-		if(listn || nflag) {
+		if(listn || FLAG('n')) {
 			count = a1-zero;
 			putd();
 			putchr('\t');
@@ -460,7 +461,7 @@ address(void)
 				error(Q);
 			break;
 		case 'N':
-			nflag = ~nflag;
+			FLAG('n') = ~FLAG('n');
 			break;
 		case '\'':
 			c = getchr();
