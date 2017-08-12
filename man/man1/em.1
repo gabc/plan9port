@@ -1,8 +1,8 @@
 .TH ED 1
 .SH NAME
-ed \- text editor
+em \- text editor
 .SH SYNOPSIS
-.B ed
+.B em
 [
 .B -
 ]
@@ -16,18 +16,18 @@ ed \- text editor
 .I file
 ]
 .SH DESCRIPTION
-.I Ed
-is a venerable text editor.
+.I Em
+is a venerable text editor, which I bastardized because I am but a feeble human.
 .PP
 If a
 .I file
 argument is given,
-.I ed
+.I em
 simulates an
 .L e
 command (see below) on that file:
 it is read into
-.I ed's
+.I em's
 buffer so that it can be edited.
 The options are
 .TP
@@ -64,7 +64,7 @@ command for printing to the outrageous
 .L n
 command.
 .PP
-.I Ed
+.I Em
 operates on a `buffer', a copy of the file it is editing;
 changes made
 in the buffer have no effect on the file until a
@@ -76,7 +76,7 @@ in a temporary file called the
 .IR buffer .
 .PP
 Commands to
-.I ed
+.I em
 have a simple and regular structure: zero, one, or
 two
 .I addresses
@@ -91,7 +91,7 @@ In general, only one command may appear on a line.
 Certain commands allow the 
 addition of text to the buffer.
 While
-.I ed
+.I em
 is accepting text, it is said
 to be in
 .I  "input mode."
@@ -102,7 +102,7 @@ Input mode is left by typing a period
 alone at the
 beginning of a line.
 .PP
-.I Ed
+.I Em
 supports the 
 .I "regular expression"
 notation described in
@@ -125,7 +125,7 @@ and to
 itself.
 .PP
 To understand addressing in
-.I ed
+.I em
 it is necessary to know that at any time there is a
 .I "current line."
 Generally, the current line is
@@ -273,7 +273,7 @@ The second address of any two-address sequence
 must correspond to a line following the line corresponding to the first address.
 .PP
 In the following list of
-.I ed
+.I em
 commands, the default addresses
 are shown in parentheses.
 The parentheses are not part of
@@ -667,13 +667,13 @@ for stepping through text.
 If an interrupt signal 
 .SM (DEL)
 is sent,
-.I ed
+.I em
 prints a 
 .L ?
 and returns to its command level.
 .PP
 When reading a file,
-.I ed
+.I em
 discards
 .SM NUL
 characters
@@ -684,7 +684,7 @@ and all characters after the last newline.
 .B ed.hup
 \ \ work is saved here if terminal hangs up
 .SH SOURCE
-.B \*9/src/cmd/ed.c
+.B \*9/src/cmd/em.c
 .SH "SEE ALSO"
 .IR sam (1), 
 .IR sed (1),
