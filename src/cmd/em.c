@@ -1129,6 +1129,7 @@ init(void)
 		error1(T);
 		exits(0);
 	}
+	putenv("f", savedfile);
 	dot = dol = zero;
 }
 
