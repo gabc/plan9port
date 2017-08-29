@@ -645,7 +645,10 @@ type(Flayer *l, int res)	/* what a bloody mess this is */
 			switch(c){
 			case '\b':
 			case 0x7F:	/* del */
-				l->p0 = a-1;
+				if((l->f.p0 == l->f.p1 && l->f.p1 == frcharofpt(&l->f, mousep->xy)))
+					l->p0 = a-1;
+				else
+					l->p0 = a;
 				break;
 			case 0x15:	/* ctrl-u */
 				l->p0 = ctlu(&t->rasp, l->origin, a);
