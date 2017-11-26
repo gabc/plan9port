@@ -4,7 +4,7 @@ acme, win, awd \- interactive text windows
 .SH SYNOPSIS
 .B acme
 [
-.B -abr
+.B -sabr
 ]
 [
 .B -f
@@ -198,6 +198,9 @@ The option
 .B -a
 causes each window to start in 
 autoindent mode.
+The option
+.B -s
+causes every window to use spaces instead of tabs for indentation.
 .SS "Directory context
 Each window's tag names a directory: explicitly if the window
 holds a directory; implicitly if it holds a regular file
@@ -757,6 +760,12 @@ Rob Pike,
 .I
 Acme: A User Interface for Programmers.
 .SH BUGS
+The
+.B -s
+option is not per-window settable. It is every window or none of them.
+It also forces 4 spaces, no more, no less, and this is not an option either.
+It has been set that way so that Python could be written in acme.
+.PP
 With the
 .B -l
 option or

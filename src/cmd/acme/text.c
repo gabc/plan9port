@@ -887,7 +887,7 @@ texttype(Text *t, Rune r)
 			}
 		}
 		break; /* fall through to normal code */
-	case '\t': /* sapces indent */ /* gabc */
+	case '\t':
 		if(globalspaceindent) {  /* if(t->w->spaceindent){ */
 			rp = runemalloc(5);
 			nr = 0;
