@@ -25,6 +25,7 @@ char	hasunlocked = 0;
 int	maxtab = 8;
 int	chord;
 int	autoindent;
+int	spacesindent;
 
 #define chording 0	/* code here for reference but it causes deadlocks */
 
@@ -380,6 +381,38 @@ raspc(Rasp *r, long p)
 	return 0;
 }
 
+int
+getcol(Rasp *r, long p)
+{
+	int col;
+
+	for(col = 0; p > 0 && raspc(r, p-1)!='\n'; p--, col++)
+		;
+	return col;
+}
+
+long
+del(Rasp *r, long o, long p, long e)
+{
+	int i, col, n;
+
+	if(--p < o){
+                print("BP: %d O: %d\n", p, o);
+		return o;
+                }
+	if(!spacesindent || raspc(r, p)!=' '){
+                //print("AP: %d O: %d\n", p, o);
+		return p+e;
+                }
+	col = getcol(r, p) + 1;
+	if((n = col % maxtab) == 0)
+		n = maxtab;
+	for(i = 0; p-1>=o && raspc(r, p-1)==' ' && i<n-1; --p, i++)
+		;
+        print("P: %d O: %d\n", p, o);
+	return p>=o? p : o;
+}
+
 long
 ctlw(Rasp *r, long o, long p)
 {
@@ -556,7 +589,14 @@ type(Flayer *l, int res)	/* what a bloody mess this is */
 				break;
 			}
 		}
-		*p++ = c;
+		if(spacesindent && c == '\t'){
+			int i, col, n;
+			col = getcol(&t->rasp, a);
+			n = maxtab - col % maxtab;
+			for(i = 0; i < n && p < buf+nelem(buf); i++)
+				*p++ = ' ';
+		} else
+			*p++ = c;
 		if(autoindent)
 		if(c == '\n'){
 			/* autoindent */
@@ -645,10 +685,14 @@ type(Flayer *l, int res)	/* what a bloody mess this is */
 			switch(c){
 			case '\b':
 			case 0x7F:	/* del */
-				if((l->f.p0 == l->f.p1 && l->f.p1 == frcharofpt(&l->f, mousep->xy)))
-					l->p0 = a-1;
-				else
-					l->p0 = a;
+			 print("SLE: %d O: %d", l->f.p0, l->f.p1);
+			 print("SLA: %d B: %d\n\n", l->p0, l->p1);
+                        if((l->f.p0 == l->f.p1)){
+                                print("SELECT?\n");
+				l->p0 = del(&t->rasp, l->origin, a, 0);
+                        }else{
+				l->p0 = del(&t->rasp, l->origin, a, 1);
+                        }
 				break;
 			case 0x15:	/* ctrl-u */
 				l->p0 = ctlu(&t->rasp, l->origin, a);

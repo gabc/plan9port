@@ -41,6 +41,9 @@ getscreen(int argc, char **argv)
 	case 'a':
 		autoindent = 1;
 		break;
+	case 'i':
+		spacesindent = 1;
+		break;
 	case 'W':
 		winsize = EARGF(usage());
 		break;

@@ -76,6 +76,11 @@ main(int _argc, char **_argv)
 		*ap++ = "-W";
 		*ap++ = EARGF(usage());
 		break;
+	case 'i':
+		*ap++ = "-i";
+		if(ap >= termargs+nelem(termargs))
+			usage();
+		break;
 	}ARGEND
 	*ap = nil;
 
