@@ -887,6 +887,17 @@ texttype(Text *t, Rune r)
 			}
 		}
 		break; /* fall through to normal code */
+	case '\t': /* sapces indent */ /* gabc */
+		if(globalspaceindent) {  /* if(t->w->spaceindent){ */
+			rp = runemalloc(5);
+			nr = 0;
+			rp[nr++] = ' ';
+			for(i=1; i<4; i++){
+				rp[nr++] = ' ';
+			}
+			break;
+		}
+		break;
 	}
 	/* otherwise ordinary character; just insert, typically in caches of all texts */
 	for(i=0; i<t->file->ntext; i++){

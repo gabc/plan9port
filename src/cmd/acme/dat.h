@@ -240,6 +240,7 @@ struct Window
 	uchar	filemenu;
 	uchar	dirty;
 	uchar	autoindent;
+	uchar   spaceindent;
 	uchar	showdel;
 	int		id;
 	Range	addr;
@@ -550,6 +551,7 @@ extern char		wdir[]; /* must use extern because no dimension given */
 int			editing;
 int			erroutfd;
 int			messagesize;		/* negotiated in 9P version setup */
+int         globalspaceindent;
 int			globalautoindent;
 int			dodollarsigns;
 char*		mtpt;

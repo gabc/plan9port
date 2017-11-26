@@ -76,6 +76,9 @@ threadmain(int argc, char *argv[])
 		_threaddebuglevel = ~0;
 		}
 		break;
+	case 's':
+	    globalspaceindent = TRUE;
+	    break;
 	case 'a':
 		globalautoindent = TRUE;
 		break;
