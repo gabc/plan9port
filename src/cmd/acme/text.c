@@ -670,11 +670,13 @@ texttype(Text *t, Rune r)
 	nr = 1;
 	rp = &r;
 	switch(r){
+	case '':
 	case Kleft:
 		typecommit(t);
 		if(t->q0 > 0)
 			textshow(t, t->q0-1, t->q0-1, TRUE);
 		return;
+	case '':
 	case Kright:
 		typecommit(t);
 		if(t->q1 < t->file->b.nc)
